@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ProductService, { Product } from '@services/ProductService';
+import ProductService from '@services/ProductService';
+import { Product } from '@services/productServiceTypes';
 import {
   Table,
   TableBody,
@@ -13,6 +14,7 @@ import {
 } from '@mui/material';
 import { Loader } from '@components/Loader';
 import './TablePage.scss';
+import ProductInfoModal from '@components/ProductInfoModal/ProductInfoModal';
 
 export const TablePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,6 +23,8 @@ export const TablePage: React.FC = () => {
   const [total, setTotal] = useState<number>(10);
   const [filterId, setFilterId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -41,8 +45,8 @@ export const TablePage: React.FC = () => {
 
       let response;
       if (filterId) {
-        // response = await ProductService.getProductById(Number(filterId));
-        // setProducts([response]);
+        response = await ProductService.getProductById(Number(filterId));
+        setProducts([response.data]);
       } else {
         response = await ProductService.getProducts(page + 1, perPage);
         setProducts(response.data);
@@ -62,16 +66,16 @@ export const TablePage: React.FC = () => {
     window.history.replaceState({}, '', url.toString());
   };
 
-  // const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value } = event.target;
-  //   if (/^\d*$/.test(value)) {
-  //     setFilterId(value);
-  //     const url = new URL(window.location.href);
-  //     url.searchParams.set('id', value);
-  //     setPage(0);
-  //     window.history.replaceState({}, '', url.toString());
-  //   }
-  // };
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    if (/^\d*$/.test(value)) {
+      setFilterId(value);
+      const url = new URL(window.location.href);
+      url.searchParams.set('id', value);
+      setPage(0);
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -86,17 +90,23 @@ export const TablePage: React.FC = () => {
     updateUrlParams(1);
   };
 
+  const handleOpenModal = (product: Product) => {
+    setShowModal(true);
+    setSelectedProduct(product);
+  };
+
   return (
     <div className="wrapper">
-      {/* <TextField
+      <TextField
         type="text"
         placeholder="Filter by ID"
         value={filterId}
         onChange={handleFilterChange}
         className="input"
-      /> */}
+      />
+
       <TableContainer component={Paper}>
-        <Table>
+        <Table sx={{ minWidth: 500 }}>
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
@@ -114,8 +124,13 @@ export const TablePage: React.FC = () => {
             ) : (
               products.map((product) => (
                 <TableRow
+                  hover
                   key={product.id}
-                  style={{ backgroundColor: product.color }}
+                  sx={{
+                    backgroundColor: `${product?.color}`,
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => handleOpenModal(product)}
                 >
                   <TableCell>{product.id}</TableCell>
                   <TableCell>{product.name}</TableCell>
@@ -126,15 +141,23 @@ export const TablePage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={total}
-        rowsPerPage={perPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+
+      {filterId ? null : (
+        <TablePagination
+          rowsPerPageOptions={[]}
+          component="div"
+          count={total}
+          rowsPerPage={perPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          className="input"
+        />
+      )}
+
+      {showModal && selectedProduct && (
+        <ProductInfoModal product={selectedProduct} showModal={setShowModal} />
+      )}
     </div>
   );
 };

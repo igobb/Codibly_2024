@@ -1,24 +1,5 @@
+import { ApiResponse, ApiResponseWithFilter } from './productServiceTypes';
 import axios from 'axios';
-
-export interface Product {
-  id: number;
-  name: string;
-  year: number;
-  color: string;
-  pantone_value: string;
-}
-
-export interface ApiResponse {
-  page: number;
-  per_page: number;
-  total: number;
-  total_pages: number;
-  data: Product[];
-  support: {
-    url: string;
-    text: string;
-  };
-}
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 
@@ -34,7 +15,7 @@ const ProductService = {
     }
   },
 
-  getProductById: async (productId: number): Promise<Product> => {
+  getProductById: async (productId: number): Promise<ApiResponseWithFilter> => {
     try {
       const response = await axios.get(`${API_URL}?id=${productId}`);
       return response.data;
