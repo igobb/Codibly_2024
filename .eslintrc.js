@@ -16,4 +16,16 @@ export default {
   rules: {
     'prettier/prettier': 'error',
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@services', './src/services'],
+          ['@pages', './src/pages'],
+          ['@components', './src/components'],
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
 };
