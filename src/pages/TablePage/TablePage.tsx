@@ -18,6 +18,7 @@ import { SearchByIdInput } from '@components/SearchByIdInput/SearchByIdInput';
 import { ErrorView } from '@components/ErrorView';
 import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
 
 const TablePage: React.FC = () => {
   const location = useLocation();
@@ -34,6 +35,8 @@ const TablePage: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [error, setError] = useState<AxiosError | null>();
 
+  const [debouncedId] = useDebounce(filterId, 300);
+
   const maxPages = Math.ceil(total / 5);
 
   if (page > maxPages) {
@@ -46,8 +49,10 @@ const TablePage: React.FC = () => {
 
     let response;
 
-    if (filterId && filterId !== '') {
-      response = await ProductService.getProductById(Number(filterId));
+    console.log(debouncedId);
+
+    if (debouncedId && debouncedId !== '') {
+      response = await ProductService.getProductById(Number(debouncedId));
 
       if (response?.name === 'AxiosError') {
         setError(response);
@@ -75,7 +80,7 @@ const TablePage: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, [page, filterId]);
+  }, [page, debouncedId]);
 
   const updateUrlParams = (newPage: number) => {
     const url = new URL(window.location.href);
@@ -95,6 +100,7 @@ const TablePage: React.FC = () => {
 
     window.history.replaceState({}, '', url.toString());
   };
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage + 1);
     updateUrlParams(newPage + 1);
@@ -114,7 +120,7 @@ const TablePage: React.FC = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorView error={error} filterId={filterId ? filterId : ''} />
+        <ErrorView error={error} filterId={debouncedId ? debouncedId : ''} />
       ) : (
         <Fragment>
           <TableContainer component={Paper}>
@@ -146,7 +152,7 @@ const TablePage: React.FC = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          {filterId ? null : (
+          {debouncedId ? null : (
             <TablePagination
               rowsPerPageOptions={[]}
               component="div"
