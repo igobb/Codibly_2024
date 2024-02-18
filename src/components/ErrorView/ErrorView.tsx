@@ -18,7 +18,7 @@ export const ErrorView = ({ error, filterId }: ErrorViewProps) => {
       <Typography align="center" variant="subtitle1" gutterBottom>
         {error?.response?.status === 404 && (
           <Fragment>
-            There is no prodct with ID
+            There is no product with ID
             <Typography sx={{ fontSize: '25px' }}>{filterId}</Typography>
             in the database
           </Fragment>
