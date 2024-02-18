@@ -1,6 +1,7 @@
-import { Box, Modal, Typography } from '@mui/material';
+import { Box, Modal, Stack, Typography } from '@mui/material';
 import { Product } from '@services/productServiceTypes';
 import { modalStyles } from './ProductInfoModalStyles';
+import CloseIcon from '@mui/icons-material/Close';
 
 export interface ProductInfoModalProps {
   product: Product;
@@ -18,25 +19,38 @@ const ProductInfoModal = ({ product, showModal }: ProductInfoModalProps) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyles}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          <span>{name.toUpperCase()} ALL DATA</span>
-        </Typography>
+        <Stack direction="row" spacing={2}>
+          <Stack justifyContent="center">
+            <Box sx={{ width: 28, height: 28, backgroundColor: `${color}` }} />
+          </Stack>
+
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {name.toUpperCase()} ALL DATA
+          </Typography>
+        </Stack>
+
         <Typography
           component={'div'}
           id="modal-modal-description"
           sx={{ mt: 2 }}
         >
-          <div
-            className="wrapper"
-            style={{ display: 'flex', flexDirection: 'column' }}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span>ID: {id}</span>
-            <span>Name: {name}</span>
             <span>Year: {year}</span>
             <span>Color: {color}</span>
             <span>Pantone value: {pantone_value}</span>
           </div>
         </Typography>
+
+        <CloseIcon
+          onClick={() => showModal(false)}
+          sx={{
+            position: 'absolute',
+            top: 22,
+            right: 30,
+            cursor: 'pointer',
+          }}
+        />
       </Box>
     </Modal>
   );

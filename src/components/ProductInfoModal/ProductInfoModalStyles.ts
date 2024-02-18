@@ -4,9 +4,9 @@ export const modalStyles = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'black',
-  color: 'white',
-  border: '2px solid #000',
+  bgcolor: 'white',
+  color: 'black',
+  border: '3px solid #000',
   boxShadow: 24,
   p: 4,
 };
