@@ -25,3 +25,8 @@ export interface ApiResponseWithFilter {
     text: string;
   };
 }
+
+export interface ValidationError {
+  message: string;
+  errors: Record<string, string[]>;
+}
