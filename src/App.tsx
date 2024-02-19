@@ -8,6 +8,7 @@ import Routes from './routes/Routes';
 import { Suspense } from 'react';
 import { Loader } from '@components/Loader';
 import { Box, Container, Paper, Stack } from '@mui/material';
+import { TablePageProvider } from './context';
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
                 sx={{ margin: 2, padding: 5, paddingBottom: 2, minHeight: 555 }}
               >
                 <Suspense fallback={<Loader />}>
-                  <Routes />
+                  <TablePageProvider>
+                    <Routes />
+                  </TablePageProvider>
                 </Suspense>
               </Box>
             </Paper>

@@ -23,7 +23,8 @@
     "paths": {
       "@services/*": ["./src/services/*"],
       "@pages/*": ["./src/pages/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@context/*": ["./src/context/*"]
     }
   },
   "include": ["src", "./setupTest.ts"],

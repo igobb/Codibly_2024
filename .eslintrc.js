@@ -23,6 +23,7 @@ export default {
           ['@services', './src/services'],
           ['@pages', './src/pages'],
           ['@components', './src/components'],
+          ['@context', './src/context'],
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
