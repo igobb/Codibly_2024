@@ -2,19 +2,28 @@ import { Box, Modal, Stack, Typography } from '@mui/material';
 import { Product } from '@services/productServiceTypes';
 import { modalStyles } from './ProductInfoModalStyles';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTablePageContext } from '@context/TablePageContext';
 
 export interface ProductInfoModalProps {
   product: Product;
   showModal: (show: boolean) => void;
 }
 
-const ProductInfoModal = ({ product, showModal }: ProductInfoModalProps) => {
-  const { id, name, year, color, pantone_value } = product;
+const ProductInfoModal = () => {
+  const { showModal, setShowModal, selectedProduct } = useTablePageContext();
+
+  console.log(selectedProduct);
+
+  if (!showModal || !selectedProduct) {
+    return null;
+  }
+
+  const { id, name, year, color, pantone_value } = selectedProduct;
 
   return (
     <Modal
       open={true}
-      onClose={() => showModal(false)}
+      onClose={() => setShowModal(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -43,7 +52,7 @@ const ProductInfoModal = ({ product, showModal }: ProductInfoModalProps) => {
         </Typography>
 
         <CloseIcon
-          onClick={() => showModal(false)}
+          onClick={() => setShowModal(false)}
           sx={{
             position: 'absolute',
             top: 22,

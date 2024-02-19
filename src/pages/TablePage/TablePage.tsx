@@ -39,6 +39,7 @@ const TablePage: React.FC = () => {
         filterId={filterId ? filterId : ''}
         handleFilterChange={handleFilterChange}
       />
+
       {loading ? (
         <Loader />
       ) : error ? (
@@ -87,9 +88,8 @@ const TablePage: React.FC = () => {
           )}
         </Fragment>
       )}
-      {showModal && selectedProduct && (
-        <ProductInfoModal product={selectedProduct} showModal={setShowModal} />
-      )}
+
+      <ProductInfoModal />
     </div>
   );
 };
