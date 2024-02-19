@@ -3,16 +3,11 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
+import { useTablePageContext } from '@context/TablePageContext';
 
-interface SearchByIdInputProps {
-  filterId: string;
-  handleFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+export const SearchByIdInput = () => {
+  const { filterId, handleFilterChange } = useTablePageContext();
 
-export const SearchByIdInput = ({
-  filterId,
-  handleFilterChange,
-}: SearchByIdInputProps) => {
   return (
     <Stack justifyContent="space-between">
       <FormControl sx={{ marginBottom: 3, height: 40 }}>

@@ -1,13 +1,7 @@
 import { Box, Modal, Stack, Typography } from '@mui/material';
-import { Product } from '@services/productServiceTypes';
 import { modalStyles } from './ProductInfoModalStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTablePageContext } from '@context/TablePageContext';
-
-export interface ProductInfoModalProps {
-  product: Product;
-  showModal: (show: boolean) => void;
-}
 
 const ProductInfoModal = () => {
   const { showModal, setShowModal, selectedProduct } = useTablePageContext();

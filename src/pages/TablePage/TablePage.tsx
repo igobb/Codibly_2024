@@ -18,27 +18,19 @@ import { useTablePageContext } from '@context/TablePageContext';
 
 const TablePage: React.FC = () => {
   const {
-    filterId,
     loading,
     error,
     debouncedId,
     products,
-    selectedProduct,
     total,
     page,
     handleOpenModal,
     handleChangePage,
-    handleFilterChange,
-    showModal,
-    setShowModal,
   } = useTablePageContext();
 
   return (
     <div className="wrapper">
-      <SearchByIdInput
-        filterId={filterId ? filterId : ''}
-        handleFilterChange={handleFilterChange}
-      />
+      <SearchByIdInput />
 
       {loading ? (
         <Loader />
