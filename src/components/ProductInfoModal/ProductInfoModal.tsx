@@ -3,10 +3,8 @@ import { modalStyles } from './ProductInfoModalStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTablePageContext } from '@context/TablePageContext';
 
-const ProductInfoModal = () => {
+export const ProductInfoModal = () => {
   const { showModal, setShowModal, selectedProduct } = useTablePageContext();
-
-  console.log(selectedProduct);
 
   if (!showModal || !selectedProduct) {
     return null;
@@ -58,5 +56,3 @@ const ProductInfoModal = () => {
     </Modal>
   );
 };
-
-export default ProductInfoModal;

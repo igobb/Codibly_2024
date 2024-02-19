@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import { Loader } from '@components/Loader';
 import './TablePage.scss';
-import ProductInfoModal from '@components/ProductInfoModal/ProductInfoModal';
-import { SearchByIdInput } from '@components/SearchByIdInput/SearchByIdInput';
+import { ProductInfoModal } from '@components/ProductInfoModal';
+import { SearchByIdInput } from '@components/SearchByIdInput';
 import { ErrorView } from '@components/ErrorView';
 import { useTablePageContext } from '@context/TablePageContext';
 
