@@ -91,7 +91,7 @@ const useTablePageState = () => {
     window.history.replaceState({}, '', url.toString());
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage + 1);
     updateUrlParams(newPage + 1);
   };
