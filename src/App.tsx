@@ -14,21 +14,26 @@ function App() {
   return (
     <ErrorBoundary>
       <div className="App">
-        <Container maxWidth="sm">
-          <Stack sx={{ height: '100%', justifyContent: 'center' }}>
-            <Paper elevation={20}>
-              <Box
-                sx={{ margin: 2, padding: 5, paddingBottom: 2, minHeight: 555 }}
-              >
-                <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader />}>
+          <Container maxWidth="sm">
+            <Stack sx={{ height: '100%', justifyContent: 'center' }}>
+              <Paper elevation={20}>
+                <Box
+                  sx={{
+                    margin: 2,
+                    padding: 5,
+                    paddingBottom: 2,
+                    minHeight: 555,
+                  }}
+                >
                   <TablePageProvider>
                     <Routes />
                   </TablePageProvider>
-                </Suspense>
-              </Box>
-            </Paper>
-          </Stack>
-        </Container>
+                </Box>
+              </Paper>
+            </Stack>
+          </Container>
+        </Suspense>
       </div>
     </ErrorBoundary>
   );
