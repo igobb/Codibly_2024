@@ -28,7 +28,7 @@ This is my solution for Codibly recruitment task. This project is a table with p
 * Husky
 
 ## Setup
-To run this project <a href="">CLICK THIS LINK</a>
+To run this project <a href="https://codibly-2024-xfsq.vercel.app/">CLICK THIS LINK</a>
 
 or follow these steps:
 
