@@ -16,7 +16,7 @@ export const SearchByIdInput = () => {
         <OutlinedInput
           id="component-outlined"
           label="Filter item by ID"
-          type="text"
+          type="number"
           endAdornment={<SearchIcon sx={{ marginLeft: 2 }} />}
           value={filterId}
           onChange={handleFilterChange}
